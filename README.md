@@ -1,1 +1,2 @@
-# js_exercise
+# JavaScript exercise
+See coding_question.md for details.
