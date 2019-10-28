@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Music Cataloging App</title>
+    <script>
+    function main() {
+        const addButton = document.getElementById("add-button");
+        addButton.addEventListener("click", addAlbum);
+    }
+    function getFormInfo() {
+        const artist = document.getElementById("form-artist").value;
+        const album = document.getElementById("form-album").value;
+        const year = document.getElementById("form-year").value;
+        const genre = document.querySelector('input[name="genre"]:checked').value;
+        return [artist, album, year, genre];
+    }
+    function addAlbum(e) {
+        e.preventDefault();
+        [artist, album, year, genre] = getFormInfo();
+        if (artist === "" || album === "" || year === "") {
+            alert("Error: Artist/album/year can't be empty.");
+        }
+        else {
+            const list = document.getElementById("album-list");
+            const item = document.createElement("li");
+            const albumText = document.createTextNode(artist + ": " + album + " (" + year + ") (" + genre + ") ");
+            item.appendChild(albumText);
+            const x = document.createElement("span");
+            x.appendChild(document.createTextNode("\u274c"));
+            item.appendChild(x);
+            list.appendChild(item);
+            x.addEventListener("click", () => {
+                while (item.firstChild) {
+                    item.removeChild(item.firstChild);
+                }
+                list.removeChild(item);
+            })
+            // clear the form after adding new album
+            document.getElementById("form-artist").value = "";
+            document.getElementById("form-album").value = "";
+            document.getElementById("form-year").value = "";
+      }
+    }
+    window.addEventListener("load", main);
+    </script>
+    <style>
+    body {
+      background-color: linen;
+    }
+    
+    </style>
+</head>
+<body>
+    <div class="container">
+    <h1>Music Albums</h1>
+    <ul id="album-list" class="">
+    </ul>
+        <form action="">
+            <fieldset class="">
+                <legend>Album Information:</legend>
+                <div>
+                    <label for="form-artist">Artist:</label><br>
+                    <input class="" type="text" name="" id="form-artist">
+                </div>
+                <div>
+                    <label for="form-album">Album:</label><br>
+                    <input class="" type="text" name="" id="form-album">
+                </div>
+                <div>
+                    <label for="form-year">Year:</label><br>
+                    <input class="" type="number" name="" id="form-year">
+                </div>
+                <div>
+                    Genre:<br>
+                    <input type="radio" id="genre1" name="genre" value="psychedelic" checked>
+                    <label for="genre1">Psychedelic</label>
+                    <input type="radio" id="genre2" name="genre" value="alt-rock">
+                    <label for="genre2">Alt-rock</label>
+                    <input type="radio" id="genre3" name="genre" value="punk">
+                    <label for="genre3">Punk</label>
+                    <input type="radio" id="genre4" name="genre" value="metal">
+                    <label for="genre4">Metal</label>
+                    <input type="radio" id="genre5" name="genre" value="songwriter">
+                    <label for="genre5">Singer-songwriter</label>
+                    <p>(Of course it is dumb that these are the only genre options available)</p>
+                </div>
+            </fieldset>
+                <div>
+                <button class="" type="submit" id="add-button">Add Album</button>
+                </div>
+
+        </form>
+    </div>
+</body>
+</html>
